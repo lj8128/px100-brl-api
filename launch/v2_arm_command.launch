@@ -1,0 +1,17 @@
+<launch>
+	<!-- Arm nodes-->
+    <include file="$(find interbotix_xsarm_control)/launch/xsarm_control.launch" >
+        <arg name="robot_model" value="px100" />
+        <arg name="use_sim" value="false" />
+    </include>
+    <node pkg="px100-brl-api" type="box_pickup_v2.py" name="box_pickup" output="screen" />
+    <node pkg="armcam" type="arm_GUI.py" name="arm_gui" output="screen" />
+
+    <!-- Camera nodes-->
+    <include file="$(find usb_cam)/launch/usb_cam-test.launch" />
+    <node pkg="armcam" type="arm_cam.py" name="arm_cam" output="screen" >
+        <param name="width_pixels" value="640" />
+        <param name="height_pixels" value="480" />
+        <param name="arm_z" value="-0.14" />
+    </node>
+</launch>
