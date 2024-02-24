@@ -22,6 +22,9 @@ class InterbotixXsApiTester:
         self.xs_api.gripper.close()
         self.xs_api.arm.go_to_sleep_pose()
 
+    def go_to_sleep(self):
+        self.xs_api.arm.go_to_sleep_pose()
+
 class ArmControlApiTester:
     def __init__(self):
         self.home_publisher = rospy.Publisher("/arm_control/home", Bool, queue_size=1)
@@ -55,7 +58,8 @@ if __name__=='__main__':
     # Interbotix API Testing
 
     tester = InterbotixXsApiTester()
-    tester.draw_square_and_move_gripper()
+    tester.go_to_sleep()
+    rospy.spin()
 
     # Arm Control Testing
     # rospy.init_node("arm_control_api_tester")
